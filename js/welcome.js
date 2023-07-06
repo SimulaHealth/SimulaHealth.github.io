@@ -1,8 +1,16 @@
+const dataCollection = firebase.firestore().collection('training')
+const groupTrainingCollection = firebase
+  .firestore()
+  .collection('training_group')
+const db = firebase.firestore()
+var userUID = ''
+
 firebase.auth().onAuthStateChanged(user => {
   if (!user) {
     location.replace('index.html')
   } else {
     document.getElementById('user').innerHTML = 'Hello, ' + user.email
+    userUID = user.userUID
   }
 })
 
@@ -10,30 +18,97 @@ function logout() {
   firebase.auth().signOut()
 }
 
-const dataCollection = firebase.firestore().collection('usuarios')
-const db = firebase.firestore()
+// Obtém uma referência para o elemento <select> no HTML
+const groupTrainingSelect = document.getElementById('groupTraining')
+
+// Obtém todos os grupos de treinamento do Firestore
+groupTrainingCollection
+  .get()
+  .then(snapshot => {
+    snapshot.forEach(groupTrainingDoc => {
+      const groupTrainingData = groupTrainingDoc.data()
+      const groupName = groupTrainingData.name
+
+      // Cria uma nova opção e atribui o valor do ID do grupo de treinamento
+      const option = document.createElement('option')
+      option.value = groupTrainingDoc.id
+      option.textContent = groupName
+
+      // Adiciona a nova opção ao elemento <select>
+      groupTrainingSelect.appendChild(option)
+    })
+  })
+  .catch(error => {
+    console.error('Erro ao obter os grupos de treinamento:', error)
+  })
+
+// Event listener para capturar a seleção do grupo de treinamento
+groupTrainingSelect.addEventListener('change', function () {
+  const selectedGroupId = groupTrainingSelect.value // ID do grupo de treinamento selecionado
+
+  // Faz o update da referência do grupo de treinamento para o treinamento correspondente
+  dataCollection
+    .doc(docId)
+    .update({
+      group_training: groupTrainingCollection.doc(selectedGroupId)
+    })
+    .then(() => {
+      console.log('Referência do grupo de treinamento atualizada com sucesso!')
+    })
+    .catch(error => {
+      console.error(
+        'Erro ao atualizar a referência do grupo de treinamento:',
+        error
+      )
+    })
+})
 
 // Função para criar um novo documento
+
 function createData() {
   const name = document.getElementById('name').value
-  const age = parseInt(document.getElementById('age').value)
+  const groupTrainingSelect = document.getElementById('groupTraining')
+  const groupId = groupTrainingSelect.value
 
-  dataCollection
-    .add({
-      name: name,
-      age: age
-    })
-    .then(function (docRef) {
-      console.log('Documento criado com ID: ', docRef.id)
-      clearForm()
-      readData()
-    })
-    .catch(function (error) {
-      console.error('Erro ao criar documento: ', error)
-    })
+  // Verificar se o nome do treinamento e o grupo foram preenchidos
+  if (name && groupId) {
+    // Obtém todos os treinamentos existentes
+    dataCollection
+      .get()
+      .then(snapshot => {
+        const numberOfTrainings = snapshot.size // Número total de treinamentos existentes
+        const nextTrainingNumber = numberOfTrainings + 1 // Próximo número disponível
+
+        // Cria o ID para o novo treinamento
+        const newTrainingId = `t${nextTrainingNumber}`
+
+        // Criar um novo documento na coleção "data" com os dados fornecidos e o ID gerado
+        dataCollection
+          .doc(newTrainingId)
+          .set({
+            name: name,
+            group_training: groupTrainingCollection.doc(groupId)
+          })
+          .then(() => {
+            console.log('Novo registro criado com sucesso!')
+            // Limpar os campos do formulário
+            document.getElementById('name').value = ''
+            groupTrainingSelect.value = ''
+            clearForm()
+            readData()
+          })
+          .catch(error => {
+            console.error('Erro ao criar o novo registro:', error)
+          })
+      })
+      .catch(error => {
+        console.error('Erro ao obter os treinamentos:', error)
+      })
+  } else {
+    console.error('Preencha todos os campos obrigatórios!')
+  }
 }
 
-// Função para ler os documentos da coleção
 function readData() {
   dataCollection
     .get()
@@ -41,18 +116,38 @@ function readData() {
       const dataList = document.getElementById('dataList')
       const tbody = dataList.querySelector('tbody')
       tbody.innerHTML = ''
-
+      clearForm()
       querySnapshot.forEach(function (doc) {
         const data = doc.data()
         const row = tbody.insertRow()
         const nameCell = row.insertCell()
-        const ageCell = row.insertCell()
+        const groupTrainingCell = row.insertCell()
         const actionsCell = row.insertCell()
 
         nameCell.textContent = data.name
-        ageCell.textContent = data.age
 
-        // Botão de ação "Editar"
+        // Obtém a referência do grupo de treinamento
+        const groupTrainingRef = data.group_training
+
+        // Faz a consulta do grupo de treinamento
+        groupTrainingRef
+          .get()
+          .then(groupTrainingDoc => {
+            if (groupTrainingDoc.exists) {
+              const groupTrainingData = groupTrainingDoc.data()
+              const groupName = groupTrainingData.name
+              groupTrainingCell.textContent = groupName
+            } else {
+              groupTrainingCell.textContent =
+                'Grupo de Treinamento não encontrado'
+            }
+          })
+          .catch(error => {
+            console.error('Erro ao consultar o grupo de treinamento:', error)
+            groupTrainingCell.textContent =
+              'Erro ao consultar o grupo de treinamento'
+          })
+
         const editButton = document.createElement('button')
         editButton.textContent = 'Edit'
         editButton.addEventListener('click', function () {
@@ -75,7 +170,6 @@ function readData() {
       console.log('Error getting documents: ', error)
     })
 }
-
 // Função para atualizar um documento existente
 function editData(id) {
   // Recupere os dados do registro com base no ID fornecido
@@ -87,7 +181,13 @@ function editData(id) {
         const data = doc.data()
         // Preencha os campos do formulário com os dados existentes
         document.getElementById('name').value = data.name
-        document.getElementById('age').value = data.age
+
+        // Armazene o ID do grupo de treinamento como um atributo personalizado
+        const groupTrainingSelect = document.getElementById('groupTraining')
+        groupTrainingSelect.setAttribute('data-groupid', data.group_training.id)
+
+        // Definir a opção correta como selecionada no campo select
+        groupTrainingSelect.value = data.group_training.id
 
         // Ocultar botão "Editar" e mostrar botão "Salvar"
         document.getElementById('editBtn').style.display = 'none'
@@ -106,33 +206,36 @@ function editData(id) {
 
 function saveData() {
   const id = document.getElementById('saveBtn').getAttribute('data-id')
-  const newName = document.getElementById('name').value
-  const newAge = document.getElementById('age').value
+  const name = document.getElementById('name').value
+  const groupTrainingSelect = document.getElementById('groupTraining')
+  const groupId = groupTrainingSelect.getAttribute('data-groupid')
 
-  // Atualizar os dados no Firestore
-  dataCollection
-    .doc(id)
-    .update({
-      name: newName,
-      age: newAge
-    })
-    .then(function () {
-      console.log('Document successfully updated!')
-
-      // Limpar os campos do formulário após a atualização
-      document.getElementById('name').value = ''
-      document.getElementById('age').value = ''
-
-      // Ocultar botão "Salvar" e mostrar botão "Editar"
-      document.getElementById('saveBtn').style.display = 'none'
-      document.getElementById('editBtn').style.display = 'inline'
-      readData()
-    })
-    .catch(function (error) {
-      console.error('Error updating document: ', error)
-    })
+  // Verificar se o ID, nome do treinamento e grupo foram preenchidos
+  if (id && name && groupId) {
+    // Atualizar o documento existente na coleção "data" com os dados fornecidos
+    dataCollection
+      .doc(id)
+      .update({
+        name: name,
+        group_training: groupTrainingCollection.doc(groupId)
+      })
+      .then(() => {
+        console.log('Registro atualizado com sucesso!')
+        // Limpar os campos do formulário e redefinir os botões
+        document.getElementById('name').value = ''
+        groupTrainingSelect.value = ''
+        document.getElementById('editBtn').style.display = 'inline'
+        document.getElementById('saveBtn').style.display = 'none'
+        clearForm()
+        readData()
+      })
+      .catch(error => {
+        console.error('Erro ao atualizar o registro:', error)
+      })
+  } else {
+    console.error('Preencha todos os campos obrigatórios!')
+  }
 }
-
 // Função para apagar um registro
 function deleteData(id) {
   // Apague o registro com base no ID fornecido
@@ -143,7 +246,7 @@ function deleteData(id) {
       console.log('Document successfully deleted!')
       // Limpe os campos do formulário após a exclusão
       document.getElementById('name').value = ''
-      document.getElementById('age').value = ''
+      document.getElementById('groupTraining').value = ''
       readData()
     })
     .catch(function (error) {
@@ -154,12 +257,12 @@ function deleteData(id) {
 // Função para limpar o formulário
 function clearForm() {
   document.getElementById('name').value = ''
-  document.getElementById('age').value = ''
+  document.getElementById('groupTraining').value = ''
 }
 
 function consultaComWhere() {
   const cidades = fireSQL.query(`
-  SELECT  name , age
+  SELECT  name , groupTraining
   FROM usuarios
   `)
   cidades.then(lista => {
