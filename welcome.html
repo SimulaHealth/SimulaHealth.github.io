@@ -1,125 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome Page</title>
 
-    <link rel="stylesheet" href="./index.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css"
-      rel="stylesheet"
-    />
-    <script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"
-    ></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome Page</title>
 
-    <style>
-      .container {
-        margin-top: 50px;
-      }
+  <link rel="stylesheet" href="./platform.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css" rel="stylesheet" />
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
+</head>
 
-      #dataList {
-        width: 100%;
-      }
-    </style>
-  </head>
+<body onload="readData()">
+  <div class="overlay"></div>
+  <div class="container">
 
-  <body onload="readData()">
-    <center>
-      <div style="margin: 50px">
-        <span id="user" class="message"
-          >Hello, <span id="email-id">email-id</span></span
-        >
-        <div class="success">
-          <span>Welcome, you are successfully logged in!</span>
-        </div>
-        <br />
-        <button class="btn btn-danger" onclick="logout()">Logout</button>
+    <div class="sidebar">
+      <div class="profile">
+        <center>
+          <img src="https://via.placeholder.com/105x105" alt="Profile Image" />
+          <div class="profile-text">
+            <span id="user" class="message profile-name"> Bem vindo, <span id="user-name">email-id</span></span>
+            <span class="profile-class">Turma XXXX</span>
+          </div>
+        </center>
       </div>
-      <div class="container">
-        <h2>CRUD Example</h2>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="name">Name:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                placeholder="Enter name"
-              />
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="groupTraining">Group Training:</label>
-              <select class="form-control" id="groupTraining">
-                <option value="">Select a training group</option>
-                <!-- Opções de grupos de treinamento serão adicionadas dinamicamente -->
-              </select>
-            </div>
-          </div>
-          <div class="col">
-            <button type="button" class="btn btn-success" onclick="readData()">
-              Read
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              onclick="createData()"
-            >
-              Create
-            </button>
-            <button
-              id="editBtn"
-              type="button"
-              class="btn btn-warning"
-              onclick="editData('documentId')"
-            >
-              Edit
-            </button>
-            <button
-              id="saveBtn"
-              type="button"
-              class="btn btn-success"
-              onclick="saveData()"
-              style="display: none"
-            >
-              Save
-            </button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <table class="table" id="dataList">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Group Training</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
+
+      <ul class="menu">
+        <li class="menu-item">
+          <button class="menu-button">
+            <span class="material-symbols-outlined">
+              home
+            </span>
+            Início</button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-button">
+            <span class="material-symbols-outlined">
+              3d_rotation
+            </span>
+            Minhas Simulações</button>
+        </li>
+        <li class="menu-item">
+
+          <button class="menu-button">
+            <span class="material-symbols-outlined">
+              help
+            </span>
+            Dúvidas</button>
+        </li>
+
+        <li class="menu-item">
+          <button class="menu-button">
+            <span class="material-symbols-outlined">
+              dashboard
+            </span>
+            Dashboard</button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-button">
+            <span class="material-symbols-outlined">
+              groups
+            </span>
+            Turmas</button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-button">
+            <span class="material-symbols-outlined">
+              error
+            </span>
+            Alertas</button>
+        </li>
+
+
+
+        <li class="menu-item">
+
+          <button class="menu-button">
+            <span class="material-symbols-outlined">
+              settings
+            </span>
+            Configuraçõoes</button>
+        </li>
+        <li class="menu-item">
+
+          <button class="menu-button" onclick="logout()">
+            <span class="material-symbols-outlined">
+              logout
+            </span>
+            Sair</button>
+        </li>
+      </ul>
+
+      <div class="logo">
+        <div class="logo-text">SIMULA</div>
+        <div class="logo-subtext">HEALTH</div>
+        <div class="logo-line"></div>
+        <div class="footer">
+          <div class="footer-text">PLATAFORMA DIGITAL</div>
+          <div class="footer-text">DE TREINAMENTO E SAÚDE</div>
         </div>
       </div>
-    </center>
 
-    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.7/firestore-exports.js"></script>
+    </div>
+    <div>
+      <div class="title">Configurações</div>
+      <div class="content">
 
-    <script src="js/firebase.js"></script>
-    <script src="js/welcome.js"></script>
-    <script src="js/index.js"></script>
-  </body>
+        <center>
+          <div>
+            <h2>CRUD Example</h2>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter name" />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="groupTraining">Group Training:</label>
+                  <select class="form-control" id="groupTraining">
+                    <option value="">Select a training group</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-success" onclick="readData()">
+                  Read
+                </button>
+                <button type="button" class="btn btn-primary" onclick="createData()">
+                  Create
+                </button>
+                <button id="editBtn" type="button" class="btn btn-warning" onclick="editData('documentId')">
+                  Edit
+                </button>
+                <button id="saveBtn" type="button" class="btn btn-success" onclick="saveData()" style="display: none">
+                  Save
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <table class="table" id="dataList">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Group Training</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="button">
+            <div class="button-text">Salvar</div>
+          </div>
+
+        </center>
+
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firestore-exports.js"></script>
+
+  <script src="js/firebase.js"></script>
+  <script src="js/welcome.js"></script>
+</body>
+
 </html>

@@ -22,39 +22,136 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"
     ></script>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Noto+Sans:wght@400&display=swap" rel="stylesheet">
     <link href="./index.css" rel="stylesheet" />
+    </script>
   </head>
 
-  <body class="d-flex justify-content-center p-5">
-    <div class="card">
-      <div class="card-header">
-        <center>
-          <h3>Sign in</h3>
-        </center>
-      </div>
+  <body>
 
-      <form onsubmit="login()" id="loginForm" class="card-body px-5 py-4">
-        <center>
-          <small><span id="error" style="color: red"></span></small>
-        </center>
-        <center>
-          <label class="custom-field"
-            ><input id="email" type="text" class="input" required />
-            <span class="placeholder">Email Id</span>
-          </label>
+    <div class="container">
+      <div class="logo">
+        <img src="img/oculus-login.svg"/>
+        <div class="logo-text">SIMULA</div>
+        <div class="logo-subtext">HEALTH</div>
+      </div>
+      
+      <div class="form-container">
+        <form onsubmit="login()" id="loginForm" class="card-body px-5 py-4">
+          <center>
+            <small><span id="error" style="color: red"></span></small>
+          </center>
+          <center>
+            <label class="custom-field">
+              <input id="email" type="text" class="input" required />
+              <span class="placeholder">Email</span>
+            </label>
+            <br />
+            <label class="custom-field">
+              <input id="password" type="password" class="input" />
+              <span class="placeholder">Senha</span>
+            </label>
+          </center>
+          
+          <div class="toggle-container">
+            <input type="checkbox" id="keepConnected" class="toggle-input">
+            <label for="keepConnected" class="toggle-label">
+              <span class="toggle-cursor">
+              </span>
+            </label>
+            <span class="toggle-text">Manter conectado</span>
+          </div>
           <br />
-          <label class="custom-field">
-            <input id="password" type="password" class="input" />
-            <span class="placeholder">Password</span>
-          </label>
-        </center>
-        <br />
-        <center>
-          <button type="submit" class="btn btn-primary">Login</button>
-          <button onclick="signUp()" class="btn btn-secondary">Sign Up</button>
-        </center>
-      </form>
+          <center>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <button onclick="signUp()" class="btn btn-secondary">Criar Conta</button>
+          </center>
+        </form>
+      </div>
+      <div class="copy-right">© 2023 por Simula Health</div>
     </div>
+
+    <!-- <div class="container">
+      <div class="login-container">
+        <div class="background"></div>
+        <div class="logo">
+          <h1 class="logo-text">SIMULA</h1>
+          <h2 class="logo-text">HEALTH</h2>
+        </div>
+        <div class="form">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email">
+          </div>
+          <div class="form-group">
+            <label for="password">Senha:</label>
+            <input type="password" id="password">
+          </div>
+          <button class="login-button">Entrar</button>
+          <div class="forgot-password">
+            <a href="#">Esqueci minha senha</a>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="forgot-email">
+            <a href="#">Esqueci meu email</a>
+          </div>
+          <div class="create-account">
+            <button class="create-account-button">Criar conta</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="container">
+      <div class="login-container">
+        <div class="background"></div>
+        <div class="logo">
+          <h1 class="logo-text">SIMULA</h1>
+          <h2 class="logo-text">HEALTH</h2>
+        </div>
+        <div class="form">
+          <form onsubmit="login()" id="loginForm" class="card-body px-5 py-4">
+            <center>
+              <small><span id="error" style="color: red"></span></small>
+            </center>
+            <center>
+              <label class="custom-field">
+                <input id="email" type="text" class="input" required />
+                <span class="placeholder">Email:</span>
+              </label>
+              <br />
+              <label class="custom-field">
+                <input id="password" type="password" class="input" />
+                <span class="placeholder">Senha:</span>
+              </label>
+            </center>
+            <br />
+            <center>
+              <button type="submit" class="login-button">Entrar</button>
+              <button onclick="signUp()" class="create-account-button">Criar conta</button>
+            </center>
+          </form>
+        </div>
+        <div class="footer">
+          <div class="forgot-password">
+            <a href="#">Esqueci minha senha</a>
+          </div>
+          <div class="forgot-email">
+            <a href="#">Esqueci meu email</a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    
+
+    
+    
+
+    
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>

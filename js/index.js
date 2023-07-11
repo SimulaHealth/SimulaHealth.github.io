@@ -25,3 +25,6 @@ function signUp(){
         document.getElementById("error").innerHTML = error.message
     });
 }
+
+
+
