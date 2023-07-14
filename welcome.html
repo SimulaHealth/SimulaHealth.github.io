@@ -17,162 +17,164 @@
 </head>
 
 <body onload="readData()">
-  <div class="overlay"></div>
-  <div class="container">
-
+  <div class="page-container">
     <div class="sidebar">
-      <div class="profile">
-        <center>
-          <img src="https://via.placeholder.com/105x105" alt="Profile Image" />
-          <div class="profile-text">
-            <span id="user" class="message profile-name"> Bem vindo, <span id="user-name">email-id</span></span>
-            <span class="profile-class">Turma XXXX</span>
+      <button id="sidebarToggleBtn" class="toggle-button">
+        <span class="material-symbols-outlined">
+          left_panel_close
+        </span>
+      </button>
+      <div class="sidebar-content">
+        <div class="profile">
+          <center>
+            <img src="https://via.placeholder.com/105x105" alt="Profile Image" />
+            <div class="profile-text">
+              <span id="user" class="message profile-name"> Bem vindo, <span id="user-name">email-id</span></span>
+              <span class="profile-class">Turma XXXX</span>
+            </div>
+          </center>
+        </div>
+
+        <ul class="menu">
+          <li class="menu-item">
+            <button class="menu-button">
+              <span class="material-symbols-outlined">
+                home
+              </span>
+              Início</button>
+          </li>
+          <li class="menu-item">
+            <button class="menu-button" id="sidebarBTN_MySim">
+              <span class="material-symbols-outlined">
+                3d_rotation
+              </span>
+              Minhas Simulações
+            </button>
+          </li>
+          <li class="menu-item">
+            <button class="menu-button" id="sidebarBTN_Help">
+              <span class="material-symbols-outlined">
+                help
+              </span>
+              Dúvidas
+            </button>
+          </li>
+          <li class="menu-item">
+            <button class="menu-button" id="sidebarBTN_Dashboard">
+              <span class="material-symbols-outlined">
+                dashboard
+              </span>
+              Dashboard
+            </button>
+          </li>
+          <li class="menu-item">
+            <button class="menu-button" id="sidebarBTN_Turmas">
+              <span class="material-symbols-outlined">
+                groups
+              </span>
+              Turmas
+            </button>
+          </li>
+          <li class="menu-item">
+            <button class="menu-button" id="sidebarBTN_Alertas">
+              <span class="material-symbols-outlined">
+                error
+              </span>
+              Alertas
+            </button>
+          </li>
+
+          <li class="menu-item">
+
+            <button class="menu-button" id="sidebarBTN_Settings">
+              <span class="material-symbols-outlined">
+                settings
+              </span>
+              Configuraçõoes</button>
+          </li>
+          <li class="menu-item">
+
+            <button class="menu-button" onclick="logout()">
+              <span class="material-symbols-outlined">
+                logout
+              </span>
+              Sair</button>
+          </li>
+        </ul>
+
+        <div class="logo">
+          <div class="logo-text">SIMULA</div>
+          <div class="logo-subtext">HEALTH</div>
+          <div class="logo-line"></div>
+          <div class="footer">
+            <div class="footer-text">PLATAFORMA DIGITAL</div>
+            <div class="footer-text">DE TREINAMENTO EM SAÚDE</div>
           </div>
-        </center>
-      </div>
-
-      <ul class="menu">
-        <li class="menu-item">
-          <button class="menu-button">
-            <span class="material-symbols-outlined">
-              home
-            </span>
-            Início</button>
-        </li>
-        <li class="menu-item">
-          <button class="menu-button">
-            <span class="material-symbols-outlined">
-              3d_rotation
-            </span>
-            Minhas Simulações</button>
-        </li>
-        <li class="menu-item">
-
-          <button class="menu-button">
-            <span class="material-symbols-outlined">
-              help
-            </span>
-            Dúvidas</button>
-        </li>
-
-        <li class="menu-item">
-          <button class="menu-button">
-            <span class="material-symbols-outlined">
-              dashboard
-            </span>
-            Dashboard</button>
-        </li>
-        <li class="menu-item">
-          <button class="menu-button">
-            <span class="material-symbols-outlined">
-              groups
-            </span>
-            Turmas</button>
-        </li>
-        <li class="menu-item">
-          <button class="menu-button">
-            <span class="material-symbols-outlined">
-              error
-            </span>
-            Alertas</button>
-        </li>
-
-
-
-        <li class="menu-item">
-
-          <button class="menu-button">
-            <span class="material-symbols-outlined">
-              settings
-            </span>
-            Configuraçõoes</button>
-        </li>
-        <li class="menu-item">
-
-          <button class="menu-button" onclick="logout()">
-            <span class="material-symbols-outlined">
-              logout
-            </span>
-            Sair</button>
-        </li>
-      </ul>
-
-      <div class="logo">
-        <div class="logo-text">SIMULA</div>
-        <div class="logo-subtext">HEALTH</div>
-        <div class="logo-line"></div>
-        <div class="footer">
-          <div class="footer-text">PLATAFORMA DIGITAL</div>
-          <div class="footer-text">DE TREINAMENTO E SAÚDE</div>
         </div>
       </div>
-
     </div>
-    <div>
-      <div class="title">Configurações</div>
+
+  <div class="main-content" id="mainContent">
+    <!-- Content will be dynamically updated here -->
+    <div class="title">Configurações</div>
+
+    <center>
       <div class="content">
-
-        <center>
-          <div>
-            <h2>CRUD Example</h2>
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="name">Name:</label>
-                  <input type="text" class="form-control" id="name" placeholder="Enter name" />
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="groupTraining">Group Training:</label>
-                  <select class="form-control" id="groupTraining">
-                    <option value="">Select a training group</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col">
-                <button type="button" class="btn btn-success" onclick="readData()">
-                  Read
-                </button>
-                <button type="button" class="btn btn-primary" onclick="createData()">
-                  Create
-                </button>
-                <button id="editBtn" type="button" class="btn btn-warning" onclick="editData('documentId')">
-                  Edit
-                </button>
-                <button id="saveBtn" type="button" class="btn btn-success" onclick="saveData()" style="display: none">
-                  Save
-                </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <table class="table" id="dataList">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Group Training</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-              </div>
+        <h2>CRUD Example</h2>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter name" />
             </div>
           </div>
-          <br />
-          <div class="button">
-            <div class="button-text">Salvar</div>
+          <div class="col">
+            <div class="form-group">
+              <label for="groupTraining">Group Training:</label>
+              <select class="form-control" id="groupTraining">
+                <option value="">Select a training group</option>
+              </select>
+            </div>
           </div>
-
-        </center>
-
+          <div class="col">
+            <button type="button" class="btn btn-success" onclick="readData()">
+              Read
+            </button>
+            <button type="button" class="btn btn-primary" onclick="createData()">
+              Create
+            </button>
+            <button id="editBtn" type="button" class="btn btn-warning" onclick="editData('documentId')">
+              Edit
+            </button>
+            <button id="saveBtn" type="button" class="btn btn-success" onclick="saveData()" style="display: none">
+              Save
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <table class="table" id="dataList">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Group Training</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
+      <br />
+      <div class="button">
+        <div class="button-text">Salvar</div>
+      </div>
 
+    </center>
+  </div>
 
-
-
+  <div class="copy-right">© 2023 por Simula Health</div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>

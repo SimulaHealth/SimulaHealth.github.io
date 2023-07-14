@@ -271,3 +271,68 @@ function consultaComWhere() {
     }
   })
 }
+
+
+/* Side bar buttons*/ 
+
+// Get references to the buttons and the main content element
+const mySimButton = document.getElementById("sidebarBTN_MySim");
+const helpButton = document.getElementById("sidebarBTN_Help");
+const dashboardButton = document.getElementById("sidebarBTN_Dashboard");
+const turmasButton = document.getElementById("sidebarBTN_Turmas");
+const alertasButton = document.getElementById("sidebarBTN_Alertas");
+const settingsButton = document.getElementById("sidebarBTN_Settings");
+const mainContent = document.getElementById("mainContent");
+
+
+function loadPageContent(pageName) {
+  fetch(`${pageName}.html`)
+    .then(response => response.text())
+    .then(data => {
+      const mainContent = document.getElementById("mainContent");
+      mainContent.innerHTML = data;
+    })
+    .catch(error => console.log(error));
+}
+
+
+// Add event listeners to the buttons
+mySimButton.addEventListener("click", function () {
+  console.log("My Simulações button clicked");
+  loadPageContent("dashboard/mySim")
+});
+
+helpButton.addEventListener("click", function () {
+  console.log("Dúvidas button clicked");
+  loadPageContent("dashboard/help")
+});
+
+dashboardButton.addEventListener("click", function () {
+  console.log("Dashboard button clicked");
+  loadPageContent("dashboard/dashboard")
+});
+
+turmasButton.addEventListener("click", function () {
+  console.log("Turmas button clicked");
+  loadPageContent("dashboard/user-groups")
+});
+
+alertasButton.addEventListener("click", function () {
+  console.log("Alertas button clicked");
+  loadPageContent("dashboard/alert")
+});
+
+
+settingsButton.addEventListener("click", function () {
+  console.log("Alertas button clicked");
+  loadPageContent("dashboard/settings")
+});
+
+const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+const sidebar = document.querySelector('.sidebar');
+
+sidebarToggleBtn.addEventListener('click', () => {
+  console.log('menu collapser')
+  sidebar.classList.toggle('sidebar-hidden');
+  sidebarToggleBtn.classList.toggle('clicked');
+});

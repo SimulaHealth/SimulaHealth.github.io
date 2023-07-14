@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body,
+        html {
+
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .page-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #5F4DD9;
+        }
+
+        .content {
+            min-width: 420px;
+            width: 100%;
+            height: 600px;
+            margin: 100px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0px 10px 20px rgba(194, 194, 194, 0.16);
+        }
+
+
+        .tab-container {
+            width: 80%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-end;
+        }
+
+        .tab {
+            margin-right: 10px;
+            padding:15px;
+            padding-bottom: 5px;
+            width:auto;
+            font-weight: bold; /* Add this line to make the text bold */
+            border-bottom: 3px solid gray;
+            color: gray;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            color: #7132D7;
+            border-bottom-color: #7132D7;
+        }
+
+        .form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .form-field {
+            width: 48%;
+            margin-bottom: 24px;
+        }
+
+        .form-field-label {
+            color: #4C535F;
+            font-size: 16px;
+            font-family: Manrope;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-field input {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #E0E4EC;
+            padding: 8px;
+        }
+
+        .password-hint {
+            color: #4C535F;
+            font-size: 13px;
+            font-family: Manrope;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+
+        .button-content {
+            width: 120px;
+            height: 40px;
+            background-color: #7132D7;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-label {
+            color: #FFFFFF;
+            font-size: 16px;
+            font-family: Manrope;
+            font-weight: 700;
+        }
+
+        .cancel-label {
+            color: #4C535F;
+            font-size: 16px;
+            font-family: Manrope;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .profile-pic {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .profile-pic-content {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+
+            border-radius: 10px;
+            border-style: dashed;
+        }
+
+        .profile-pic-label {
+            color: #4C535F;
+            font-size: 16px;
+            position: relative;
+            width: 100px;
+            font-family: Manrope;
+            font-weight: 500;
+            margin-top: 16px;
+        }
+
+        .logo img {
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="content">
+            <div class="tab-container">
+                <div class="tab active">Criar uma nova conta</div>
+                <div class="tab">Tab 2</div>
+                <div class="tab">Tab 3</div>
+                <div class="tab">Tab 4</div>
+            </div>
+            <div class="form">
+                <div class="profile-pic">
+                    <div class="profile-pic-label">
+                        Foto de perfil
+                    </div>
+                    <div class="profile-pic-content"></div>
+                </div>
+                <div class="logo">
+                    <img src="img/logos/logo_200x100px.png">
+                </div>
+            </div>
+            <div class="form">
+                <div class="form-field">
+                    <div class="form-field-label">Nome*</div>
+                    <input type="text">
+                </div>
+                <div class="form-field">
+                    <div class="form-field-label">Email*</div>
+                    <input type="text">
+                </div>
+                <div class="form-field">
+                    <div class="form-field-label">ID</div>
+                    <input type="text">
+                </div>
+
+                <div class="form-field">
+                    <div class="form-field-label">Telefone</div>
+                    <input type="text">
+                </div>
+                <div class="form-field">
+                    <div class="form-field-label">Digite sua senha*</div>
+                    <input type="password">
+                    <div class="password-hint">
+                        A senha deve ter:<br>
+                        - No mínimo, 6 caracteres<br>
+                        - Incluir números e letras maiúsculas e minúsculas<br>
+                        - Incluir um caractere especial que não seja letra nem número
+                    </div>
+                </div>
+                <div class="form-field">
+                    <div class="form-field-label">Confirme sua senha*</div>
+                    <input type="password">
+                </div>
+            </div>
+            <div class="tab-container">
+                <div class="button">
+                    <div class="button-content">
+                        <div class="button-label">Salvar</div>
+                    </div>
+                </div>
+                <div class="cancel-label">Cancelar</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
